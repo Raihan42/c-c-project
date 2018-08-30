@@ -1,0 +1,159 @@
+#include <stdio.h>
+#include<windows.h>
+struct main
+{ char name[20];
+  int phone_no;
+  char address[50];
+  int ticket_no;
+
+  }s;
+void view();
+void reserve();
+void cancel();
+void form();
+void menu();
+void switches();
+
+
+void main()
+{   system("color a");
+
+       printf("\n WELCOME TO RAILWAY RESERVATION SYSTEM:");
+
+ menu();
+
+}
+
+
+
+void menu()
+{
+printf("\n\n1.VIEW ALL TRAINS");
+printf("\n\n2.RESERVE A TICKET");
+printf("\n\n3.CANCEL A TICKET");
+printf("\n\n4.exit\n ");
+printf("\n\nEnter your choice: ");
+switches();
+}
+
+void switches()
+{
+    system("color a");
+    int ch;
+    scanf("%d",&ch);
+switch(ch)
+{
+    case 1: view();
+            switches();
+    break;
+    case 2: reserve();
+            switches();
+    break;
+    case 3: cancel();
+            switches();
+  break;
+  case 4:
+  break;
+  default:printf("\n Enter a valid choice");
+}
+
+}
+
+
+void view()
+{
+  printf("CODE   ROUTE  TIMINGS    ");
+  printf("\n1021 DHAKA   to  SAIDPUR    06:30    ");
+  printf("\n1024 SAIDPUR to  DHAKA      12:00    ");
+  printf("\n1098 DHAKA   to  RANGPUR    14:30    ");
+  printf("\n1987 KHULNA  to  DHAKA      18:00    ");
+  printf("\n1576 DHAKA   to  MYMANSINGH 20:00    ");
+  printf("\n\nEnter the new choice: ");
+}
+
+
+void form()
+{ FILE *out;
+out=fopen("Output.txt", "a+");
+
+ printf("\n\nEnter the name: ");
+ scanf("%s",&s.name);
+ printf("\nEnter the phone number : ");
+ scanf("%d",&s.phone_no);
+ printf("\nEnter the address: ");
+ scanf("%s",&s.address);
+ printf("\nEnter the seat no: ");
+ scanf("%d",&s.ticket_no);
+  system("color b");
+ printf("#########Success###########");
+    MessageBox(0, "Ticket Has confirmed", "Notification",1);
+    system("cls");
+
+fprintf(out, "Name   : %s\nNumber : %d\naddress: %s \nSeat No: %d\n\n",s.name,s.phone_no, s.address, s.ticket_no );
+fclose(out);
+
+}
+
+
+void reserve()
+{ int code,total_seats=50,reserved=0,class;
+
+  if(reserved<=total_seats)
+  {  reserved++;
+   printf("\nEnter the train code: ");
+   scanf("%d",&code);
+   if(code==1021||code==1024||code==1098||code==1987||code==1576)
+    {
+     printf("\n 1.first class(  fare  TK.700)");
+     printf("\n 2.second class( fare  TK.500)");
+     printf("\n 3.sleeper class(fare  TK.300)");
+     printf("\n\n Enter the new choice: ");
+     scanf("%d",&class);
+       if(class==1)
+       {
+
+ printf("Your fare is TK.700");
+  form();
+  menu();
+       }
+       else if(class==2)
+       {
+ printf("\nYour fare is TK.500");
+  form();
+  menu();
+       }
+       else if(class==3)
+       {
+       printf("\n Your fare is TK.300");
+  form();
+  menu();
+       }
+       else
+       {
+  printf("\nEnter valid choice(1,2or 3)");
+  menu();
+       }
+}
+else
+ printf("WARNING!YOU HAVE ENTERED THE WRONG CODE\a \n Try again\n");
+ system("color c");
+
+}
+}
+
+void cancel()
+{int ticket;
+ char ch;
+
+printf("enter the ticket no :");
+scanf("%d",&ticket);
+ if(ticket==s.ticket_no)
+  {    printf("your ticket is canceled.");
+   getch();
+   }
+ else
+ {printf("ticket no is invalid");
+  getch();
+ menu();
+}
+}
